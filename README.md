@@ -23,7 +23,7 @@ https://mastodon.social/web/
 
 By default, the script remove Japanese toots, but you can remove another langage
 
-Just go to settings/preferences, and edit the "Lang Remover" on the bottom of the page. Click on "save changes", and you can remove this one.
+Just go to settings/preferences on your Mastodon web interface, and edit the "Lang Remover" on the bottom of the page. Click on "save changes", and you can remove this one.
 
 ## How it's work ?
 
@@ -34,3 +34,5 @@ https://obscure-fjord-89228.herokuapp.com/lang/obrigado
 ```
 {"lang":"pt"}
 ```
+
+This code part can be found in another repo call [Detect Lang Server](https://github.com/arthurlacoste/detect-lang-server).
