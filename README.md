@@ -1,2 +1,7 @@
-# mastodon-lang-remover
-Remove a lang from the mastodon web interface
+# Mastodon Lang Remover
+
+Remove a lang from the mastodon web interface.
+
+# Install
+
+Go to :
