@@ -27,4 +27,10 @@ Just go to settings/preferences, and edit the "Lang Remover" on the bottom of th
 
 # How it's work ?
 
-T
+The script call a NodeJS server usinge Google Translate API to detect toot langage, he give a JSON array like that :
+
+https://obscure-fjord-89228.herokuapp.com/lang/obrigado
+
+```
+{"lang":"pt"}
+```
