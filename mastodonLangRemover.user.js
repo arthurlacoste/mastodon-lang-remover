@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         mastodonLangRemover
 // @namespace    https://arthurlacoste.com
-// @version      0.0.1
+// @version      0.0.2
 // @description  Remove a lang from web interface
 // @author       Arthur Lacoste <arthak@gmail.com>
 // @match        *://*/web/*
@@ -19,15 +19,19 @@
     'use strict';
 
     $(".status").initialize(function () {
-         getTranslation($(this));
+        $(this).hide();
+        getTranslation($(this));
     });
 
 
     function getTranslation(toot) {
         var langText = {};
-        var text = toot.children('.status__content').text()
-                   .replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
-        text = encodeURIComponent(text);
+        var text = 	toot.children('.status__content').text()
+					.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
+					.substring(0, 200); // analyze first 200 chars (more in japananese don't work !)
+
+		text = encodeURIComponent(text);
+
         GM_xmlhttpRequest({
             method: 'GET',
             headers: {
@@ -37,14 +41,16 @@
             onload: function(res) {
                 var resJson = JSON.parse(res.responseText);
                 langText = resJson.lang;
-                if(langText==GM_getValue('lang', 'ja')) {
+                if(GM_getValue('lang', ['ja']).includes(langText)) {
                     toot.remove();
                     console.log("RM--" + toot.children('.status__content').text());
                 } else {
+                    toot.show();
                     console.log(langText + '==' + toot.children('.status__content').text());
                 }
             },
             onerror: function() {
+                toot.show();
                 console.log('There was an error');
             }
         });
@@ -54,9 +60,15 @@
     function saveSettings(event) {
         if (event.target.tagName.toLowerCase() === 'button' && event.target.textContent === 'Save changes') {
             event.preventDefault();
-            var input = document.getElementById('translation_locale');
-            var selectedLanguage = input.options[input.selectedIndex].value;
-            GM_setValue('lang', selectedLanguage);
+            //var input = document.getElementById('translation_locale');
+            //var selectedLanguage = input.options[input.selectedIndex].value;
+            var selectedValues = [];
+            $("#translation_locale :selected").each(function(){
+                selectedValues.push($(this).val());
+            });
+            //alert(selectedValues);
+
+            GM_setValue('lang', selectedValues);
 
             setTimeout(function() {
                 document.querySelector('body').removeEventListener('click', saveSettings, false);
@@ -85,13 +97,16 @@
         label.setAttribute('for', 'translation_locale');
         label.textContent = 'Language to remove';
         var input = languageDiv.children[0].children[1];
+        input.setAttribute('multiple','');
         input.setAttribute('name', 'user[translation]');
         input.setAttribute('id', 'translation_locale');
-        input.value = GM_getValue('lang', 'ja');
+        input.setAttribute('style', 'height: 300px;');
 
         settingsGroup.insertBefore(notice, languageDiv);
-
         form.insertBefore(settingsGroup, actions);
+
+        var selectedValues = GM_getValue('lang', ['ja']);
+        $("#translation_locale").val(selectedValues);
 
         document.querySelector('body').addEventListener('click', saveSettings, false);
     }
