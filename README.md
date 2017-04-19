@@ -39,7 +39,10 @@ This code part can be found in another repo call [Detect Lang Server](https://gi
 
 ## Changelog
 
-###v0.0.1
+### v0.0.2
 - Not blinking anymore : hiding element before analyze it
 - You can select multiples langages to avoid
 - bug : analyze first 200 chars (more is not possible with this API, about japanese toots)
+
+### v0.0.1
+- first commit
