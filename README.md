@@ -1,6 +1,6 @@
 # Mastodon Lang Remover
 
-Remove a lang from the mastodon web interface.
+Remove toots from some langages on Mastodon web interface.
 
 ## Install
 
@@ -21,9 +21,9 @@ https://mastodon.social/web/
 
 ## Can I edit the langage to remove ?
 
-By default, the script remove Japanese toots, but you can remove another langage
+By default, the script remove Japanese toots, but you can remove others langages.
 
-Just go to settings/preferences on your Mastodon web interface, and edit the "Lang Remover" on the bottom of the page. Click on "save changes", and you can remove this one.
+Just go to settings/preferences on your Mastodon web interface, and edit the "Lang Remover" on the bottom of the page. Click on "save changes", and you can remove others.
 
 ## How it's work ?
 
@@ -36,3 +36,10 @@ https://obscure-fjord-89228.herokuapp.com/lang/obrigado
 ```
 
 This code part can be found in another repo call [Detect Lang Server](https://github.com/arthurlacoste/detect-lang-server).
+
+## Changelog
+
+###v0.0.1
+- Not blinking anymore : hiding element before analyze it
+- You can select multiples langages to avoid
+- bug : analyze first 200 chars (more is not possible with this API, about japanese toots)
