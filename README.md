@@ -27,7 +27,7 @@ Just go to settings/preferences on your Mastodon web interface, and edit the "La
 
 ## How it's work ?
 
-The script call a NodeJS server usinge Google Translate API to detect toot langage, he give a JSON array like that :
+A server API give a JSON array like that :
 
 https://obscure-fjord-89228.herokuapp.com/lang/obrigado
 
