@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         mastodonLangRemover
 // @namespace    https://arthurlacoste.com
-// @version      0.0.2
+// @version      0.0.3
 // @description  Remove a lang from web interface
 // @author       Arthur Lacoste <arthak@gmail.com>
 // @match        *://*/web/*
