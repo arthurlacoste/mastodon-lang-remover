@@ -41,7 +41,7 @@
 				var resJson = JSON.parse(res.responseText);
 				langText = resJson.lang;
 				if(GM_getValue('lang', ['ja']).includes(langText)) {
-					toot.remove();
+					toot.hide();
 					console.log("RM--" + toot.children('.status__content').text());
 				} else {
 					toot.show();
