@@ -1,3 +1,5 @@
+[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
+
 # Mastodon Lang Remover
 
 Remove toots from some langages on Mastodon web interface.
