@@ -6,6 +6,7 @@
 // @author       Arthur Lacoste <arthak@gmail.com>
 // @match        *://*/web/*
 // @match        *://*/settings/preferences
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @require      https://raw.githubusercontent.com/pietrasiak/jquery.initialize/master/jquery.initialize.min.js
 // @connect      detect-lang-api.irz.fr
 // @grant        GM_getValue
@@ -56,7 +57,7 @@
 	}
 
 	function saveSettings(event) {
-		if (event.target.tagName.toLowerCase() === 'button' && event.target.textContent === 'Save changes') {
+		if (event.target.tagName.toLowerCase() === 'button') {
 			event.preventDefault();
 			//var input = document.getElementById('translation_locale');
 			//var selectedLanguage = input.options[input.selectedIndex].value;
