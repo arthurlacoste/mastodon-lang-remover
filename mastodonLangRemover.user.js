@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         mastodonLangRemover
 // @namespace    https://arthurlacoste.com
-// @version      0.0.3
+// @version      0.0.4
 // @description  Remove a lang from web interface
 // @author       Arthur Lacoste <arthak@gmail.com>
 // @match        *://*/web/*
@@ -19,11 +19,18 @@
 	'use strict';
 
 	$(".status").initialize(function () {
+
+		// prevent displaying toot by hidding it
 		$(this).hide();
 		getTranslation($(this));
 	});
 
-
+	/*
+	 * getTranslation() analyze status content and deducts
+   * langage. If GM_getValue('lang') not include this langage,
+	 * it display the toot.
+	 * toot: .status element
+	 */
 	function getTranslation(toot) {
 		var langText = {};
 		var text = 	toot.children('.status__content').text()
@@ -32,6 +39,7 @@
 
 		text = encodeURIComponent(text);
 
+		// ask langage from server (json)
 		GM_xmlhttpRequest({
 			method: 'GET',
 			headers: {
@@ -42,7 +50,7 @@
 				var resJson = JSON.parse(res.responseText);
 				langText = resJson.lang;
 				if(GM_getValue('lang', ['ja']).includes(langText)) {
-					console.log("RM--" + toot.children('.status__content').text());
+					console.log(langText + '==RM--' + toot.children('.status__content').text());
 				} else {
 					toot.show();
 					console.log(langText + '==' + toot.children('.status__content').text());
@@ -56,7 +64,11 @@
 		return String(langText);
 	}
 
-	function saveSettings(event) {
+	/*
+	 * saveSettings() save selected values by user in /settings/preferences
+	 * event: click
+	 */
+	 function saveSettings(event) {
 		if (event.target.tagName.toLowerCase() === 'button') {
 			event.preventDefault();
 			//var input = document.getElementById('translation_locale');
@@ -99,7 +111,7 @@
 		input.setAttribute('multiple','');
 		input.setAttribute('name', 'user[translation]');
 		input.setAttribute('id', 'translation_locale');
-		input.setAttribute('style', 'height: 300px;');
+		input.setAttribute('style', 'height: 300px; max-height: 300px;');
 
 		settingsGroup.insertBefore(notice, languageDiv);
 		form.insertBefore(settingsGroup, actions);
