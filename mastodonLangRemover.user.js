@@ -34,9 +34,10 @@
 	function getTranslation(toot) {
 		var langText = {};
 		var text = 	toot.children('.status__content').text()
-		.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
-		.substring(0, 200); // analyze first 200 chars (more in japananese don't work !)
-
+		.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') // remove links
+		.substring(0, 200) // analyze first 200 chars (more in japananese don't work !)
+		.replace(/\#\w\w+\s?/g, '') // remove hashtags words
+		.replace(/\@\w\w+\s?/g, ''); // remove mentions
 		text = encodeURIComponent(text);
 
 		// ask langage from server (json)
@@ -50,10 +51,10 @@
 				var resJson = JSON.parse(res.responseText);
 				langText = resJson.lang;
 				if(GM_getValue('lang', ['ja']).includes(langText)) {
-					console.log(langText + '==RM--' + toot.children('.status__content').text());
+					console.log(langText + '==RM--' + text);
 				} else {
 					toot.show();
-					console.log(langText + '==' + toot.children('.status__content').text());
+					console.log(langText + '==' + text);
 				}
 			},
 			onerror: function() {
