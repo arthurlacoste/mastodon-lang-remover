@@ -29,17 +29,13 @@ Just go to settings/preferences on your Mastodon web interface, and edit the "La
 
 ## How it's work ?
 
-A server API give a JSON array like that :
-
-https://obscure-fjord-89228.herokuapp.com/lang/obrigado
-
-```
-{"lang":"pt"}
-```
-
-This code part can be found in another repo call [Detect Lang Server](https://github.com/arthurlacoste/detect-lang-server).
+Magicaly :)
 
 ## Changelog
+
+### v1.0.0
+
+- New version without server :)
 
 ### v0.0.2
 - Not blinking anymore : hiding element before analyze it
