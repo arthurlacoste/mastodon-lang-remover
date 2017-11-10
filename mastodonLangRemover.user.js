@@ -31,22 +31,20 @@
   * toot: .status element
   */
   function getTranslation(toot) {
-    const textBeforeEncode = 	toot.children('.status__content').text()
+    const text = 	toot.children('.status__content').text()
     .replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') // remove links
     .substring(0, 200) // analyze first 200 chars (more in japananese don't work !)
     .replace(/\#\w\w+\s?/g, '') // remove hashtags words
     .replace(/\@\w\w+\s?/g, ''); // remove mentions
 
-    const text = encodeURIComponent(textBeforeEncode);
-
-    // ask langage from server (json)
-
+    // ask langage from getlang:
+    // https://github.com/arthurlacoste/getlang
     const langText = getlang(text);
     if(GM_getValue('lang', ['ja']).includes(langText)) {
-      console.log(langText + '==RM--' + textBeforeEncode);
+      console.log(langText + '==RM--' + text);
     } else {
       toot.show();
-      console.log(langText + '==' + textBeforeEncode);
+      console.log(langText + '==' + text);
     }
     return String(langText);
   }
@@ -59,8 +57,6 @@
   function saveSettings(event) {
     if (event.target.tagName.toLowerCase() === 'button') {
       event.preventDefault();
-      //var input = document.getElementById('translation_locale');
-      //var selectedLanguage = input.options[input.selectedIndex].value;
       var selectedValues = [];
       $("#translation_locale :selected").each(function(){
         selectedValues.push($(this).val());
