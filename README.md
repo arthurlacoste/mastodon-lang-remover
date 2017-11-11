@@ -4,6 +4,8 @@
 
 Remove toots from some langages on Mastodon web interface.
 
+![demo](static/kap.gif)
+
 ## Install
 
 ### 1. Install Tampermonkey
